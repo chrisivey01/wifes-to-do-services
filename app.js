@@ -24,7 +24,7 @@ router.get('/', function(req, res) {
 
     client.messages
         .create({
-            body: 'Check your to do list and send chris boobs.',
+            body: 'Check your to do list! http://nat.chrisaivey.com.',
             from: '+19012455785',
             to: '+19013833011'
         })
