@@ -14,6 +14,7 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
 const accountSid = 'AC094faa1b8edda9e300224ef60ae8e47a';
 const authToken = '9266229c7ef57aee437643a5f7d0087b';
 const client = require('twilio')(accountSid, authToken);
@@ -29,7 +30,7 @@ var connection = mysql.createConnection({
     database: 'todo'
 })
 
-router.get('/', function(req, res, next) {
+app.get('/', function(req, res, next) {
 
     client.messages
         .create({
