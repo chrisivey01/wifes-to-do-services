@@ -30,7 +30,7 @@ var connection = mysql.createConnection({
     database: 'todo'
 })
 
-app.get('/', function(req, res, next) {
+app.get('/msg', function(req, res, next) {
 
     client.messages
         .create({
