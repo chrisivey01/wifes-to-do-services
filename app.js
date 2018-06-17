@@ -31,7 +31,6 @@ var connection = mysql.createConnection({
 })
 
 app.get('/msg', function(req, res, next) {
-
     client.messages
         .create({
             body: 'Check your to do list! http://nat.chrisaivey.com.',
@@ -45,32 +44,47 @@ app.get('/msg', function(req, res, next) {
 });
  
 app.get('/load', function(req,res,next){
+    connection.query('SELECT * FROM todo ', function(err, results) {
+        if (err) throw err;
+        res.send((results));
+    })
+});
 
-        connection.query('SELECT * FROM todo ', function(err, results) {
-            if (err) throw err;
-            res.send((results));
-        })
-    });
-
-
-
-app.post('/send', function(req,res,next){
-        var post = req.body;
-        connection.query("INSERT INTO todo SET ?",
-            post, function(err, results, fields) {
+app.post('/go', function(req,res,next){
+    var post = req.body;
+    connection.query("INSERT INTO mood SET ?",
+        post, function(err, results, fields) {
             if (err) throw err;
             console.log(results.insertId);
             res.end(JSON.stringify(results));
         })
-    });
+});
+
+app.get('/mood', function(req,res,next){
+    connection.query('SELECT * FROM mood ', function(err, results) {
+        if (err) throw err;
+        res.send((results));
+    })
+});
+
+
+app.post('/send', function(req,res,next){
+    var post = req.body;
+    connection.query("INSERT INTO todo SET ?",
+        post, function(err, results, fields) {
+        if (err) throw err;
+        console.log(results.insertId);
+        res.end(JSON.stringify(results));
+    })
+});
 
 app.delete('/delete/:id', function(req,res,next) {
     var post = req.params;
     connection.query('DELETE FROM `todo` WHERE `id`=?', [post.id],
-        function (err, results, fields) {
-            if (err) throw err;
-            res.end('Record has been deleted!');
-        })
+    function (err, results, fields) {
+        if (err) throw err;
+        res.end('Record has been deleted!');
+    })
 })
 
 
